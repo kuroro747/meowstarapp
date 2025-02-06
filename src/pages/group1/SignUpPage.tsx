@@ -50,6 +50,21 @@ const MainContainer = styled.div`
   }
 `;
 
+const VectorBackground = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/Vector.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% auto;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+`;
+
 const CatImage = styled.img`
   width: 800px;
   height: auto;
@@ -150,6 +165,7 @@ const SignUpPage: React.FC = () => {
 
   return (
     <PageContainer>
+      <VectorBackground />
       <Header>
         <div className="left-container">
           <Link to="/" className="link-style">

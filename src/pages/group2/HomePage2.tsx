@@ -5,7 +5,6 @@ import {
   Header,
   MainContent,
   Footer,
-  StyledButton,
 } from "../../styles/SharedStyles";
 import styled from "styled-components";
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   PageContainer,
@@ -11,33 +11,31 @@ import styled from "styled-components";
 
 interface LocationState {
   description: string;
-  image: string;
-  audio: string | null;
-  video: string | null;
+  image: File | null;
+  audio: File | null;
+  video: File | null;
 }
 
 // 添加新的样式组件
 const ContentContainer = styled.div`
-  background: rgba(255, 255, 255, 0.4); // 降低不透明度
-  backdrop-filter: blur(12px); // 增加模糊效果
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
   padding: 25px;
   border-radius: 12px;
   max-width: 800px;
   margin: 20px auto;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2),
-    // 增强白色阴影
-    0 1px 8px rgba(0, 0, 0, 0.05); // 调整暗色阴影
-  border: 1px solid rgba(255, 255, 255, 0.4); // 增加边框透明度
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2), 0 1px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 
   h2 {
     margin-bottom: 20px;
-    color: rgba(51, 51, 51, 0.9); // 调整标题颜色透明度
+    color: rgba(51, 51, 51, 0.9);
   }
 
   p {
     white-space: pre-line;
     line-height: 1.8;
-    color: rgba(68, 68, 68, 0.9); // 调整文字颜色透明度
+    color: rgba(68, 68, 68, 0.9);
     margin: 0;
     font-size: 1.1rem;
   }
@@ -66,6 +64,15 @@ const Avatar = styled.img`
 const Page2_2: React.FC = () => {
   const location = useLocation();
   const state = location.state as LocationState;
+  const [imageUrl, setImageUrl] = useState<string>("");
+
+  useEffect(() => {
+    if (state?.image) {
+      const url = URL.createObjectURL(state.image);
+      setImageUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+  }, [state?.image]);
 
   // 使用传递的数据或默认值
   const catDescription =
@@ -74,10 +81,6 @@ const Page2_2: React.FC = () => {
 She has a beautiful black and white coat, with a distinctive patch of white fur on her chest and belly.
 Lucy is quite the character—she loves to scratch the yellow sofa.
 Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys with great enthusiasm.`;
-
-  // 分开处理头像图片和主图片
-  const avatarImage = state?.image || "/lucywink.gif";
-  const mainImage = "/lucywink.gif"; // 主图片始终使用 lucywink.gif
 
   return (
     <PageContainer>
@@ -95,7 +98,7 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
       <MainContent>
         <BackgroundImageContainer2 className="background-image1">
           <img
-            src={mainImage}
+            src="/lucywink.gif"
             alt="Cat"
             style={{
               maxWidth: "400px",
@@ -107,7 +110,14 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
           />
           <ContentContainer>
             <AvatarContainer>
-              <Avatar src={avatarImage} alt="Cat Avatar" />
+              <Avatar
+                src={imageUrl || "/lucywink.gif"}
+                alt="Cat Avatar"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/lucywink.gif";
+                }}
+              />
               <h2>Cat's Introduction</h2>
             </AvatarContainer>
             <p>{catDescription}</p>
@@ -116,7 +126,10 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
               <div style={{ margin: "20px 0" }}>
                 <h3>Cat's Sound</h3>
                 <audio controls>
-                  <source src={state.audio} type="audio/*" />
+                  <source
+                    src={URL.createObjectURL(state.audio)}
+                    type="audio/*"
+                  />
                   Your browser does not support the audio element.
                 </audio>
               </div>
@@ -129,7 +142,10 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
                   controls
                   style={{ maxWidth: "100%", maxHeight: "400px" }}
                 >
-                  <source src={state.video} type="video/*" />
+                  <source
+                    src={URL.createObjectURL(state.video)}
+                    type="video/*"
+                  />
                   Your browser does not support the video element.
                 </video>
               </div>

@@ -9,14 +9,6 @@ import {
 } from "../../styles/SharedStyles";
 import styled from "styled-components";
 
-const TitleImage = styled.img`
-  width: 900px;
-  height: auto;
-  margin-top: -260px;
-  position: relative;
-  z-index: 2;
-`;
-
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
