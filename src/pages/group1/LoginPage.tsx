@@ -7,15 +7,91 @@ import {
   Header,
   MainContent,
   Footer,
-  BackgroundImageContainer,
   StyledButton,
 } from "../../styles/SharedStyles";
+import styled from "styled-components";
 
 interface UserInfo {
   username: string;
   email: string;
   password: string;
 }
+
+const TitleImage = styled.img`
+  width: 900px;
+  height: auto;
+  margin-top: -260px;
+  position: relative;
+  z-index: 2;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("/Ellipse6.png");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 0;
+    pointer-events: none;
+    left: -20%;
+    bottom: -10%;
+  }
+`;
+
+const CatImage = styled.img`
+  width: 800px;
+  height: auto;
+  margin-top: 48px;
+  position: relative;
+  z-index: 1;
+`;
+
+const FormContainer = styled.div`
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+  position: relative;
+  z-index: 2;
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    font-size: 1rem;
+    font-family: "Mina", sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+
+    &:focus {
+      outline: none;
+      border-color: #60a1d4;
+      background: white;
+    }
+  }
+`;
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -36,13 +112,11 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     setError("");
 
-    // 验证表单
     if (!formData.username || !formData.password) {
       setError("Please fill in all fields");
       return;
     }
 
-    // 验证用户
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const user = users.find(
       (u: UserInfo) =>
@@ -54,10 +128,7 @@ const LoginPage: React.FC = () => {
       return;
     }
 
-    // 登录成功，可以存储登录状态
     localStorage.setItem("currentUser", JSON.stringify(user));
-
-    // 登录成功后跳转到主页
     navigate("/");
   };
 
@@ -66,27 +137,23 @@ const LoginPage: React.FC = () => {
       <Header>
         <div className="left-container">
           <Link to="/" className="link-style">
-            HomePage
+            Home page
           </Link>
         </div>
+        <div className="welcome-text">love will find the cat</div>
         <div className="right-container">
           <Link to="/signup" className="link-style">
-            Sign Up
+            sign up
           </Link>
         </div>
       </Header>
 
       <MainContent>
-        <BackgroundImageContainer className="background-image1">
-          <img src="/cats.gif" className="image1" alt="cat animation" />
-          <img
-            src="/meowwelcome.png"
-            className="image2"
-            alt="Meowstar welcome"
-          />
-
-          <div className="links-container">
-            <form className="form-container" onSubmit={handleSubmit}>
+        <MainContainer>
+          <CatImage src="/cats.gif" alt="cat animation" />
+          <TitleImage src="/meowwelcome.png" alt="Meow Star" />
+          <FormContainer>
+            <form onSubmit={handleSubmit}>
               {error && (
                 <div style={{ color: "red", marginBottom: "10px" }}>
                   {error}
@@ -107,15 +174,21 @@ const LoginPage: React.FC = () => {
                 className="input-field"
                 value={formData.password}
                 onChange={handleChange}
+                style={{ marginTop: "20px" }}
               />
-              <StyledButton type="submit">Login</StyledButton>
+              <StyledButton
+                type="submit"
+                style={{ marginTop: "40px", width: "100%" }}
+              >
+                Login
+              </StyledButton>
             </form>
-          </div>
-        </BackgroundImageContainer>
+          </FormContainer>
+        </MainContainer>
       </MainContent>
 
       <Footer>
-        <p>Footer Content</p>
+        <p style={{ fontSize: "24px" }}>Footer Content</p>
       </Footer>
     </PageContainer>
   );

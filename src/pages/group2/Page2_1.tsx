@@ -5,10 +5,121 @@ import {
   Header,
   MainContent,
   Footer,
-  BackgroundImageContainer2,
   StyledButton,
 } from "../../styles/SharedStyles";
 import styled from "styled-components";
+
+const TitleImage = styled.img`
+  width: 900px;
+  height: auto;
+  margin-top: -260px;
+  position: relative;
+  z-index: 2;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("/Ellipse7.png");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 0;
+    pointer-events: none;
+    left: -20%;
+    bottom: -10%;
+  }
+`;
+
+const CatImage = styled.img`
+  width: 800px;
+  height: auto;
+  margin-top: 48px;
+  position: relative;
+  z-index: 1;
+`;
+
+const FormContainer = styled.div`
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+`;
+
+const FormButton = styled(StyledButton)`
+  width: 300px;
+  height: 80px;
+  margin: 8px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: black;
+  font-size: 24px;
+  border: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #f8f8f8;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.12);
+  }
+`;
+
+const CompleteButton = styled(FormButton)`
+  background: transparent;
+  box-shadow: none;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  margin-left: auto;
+  margin-right: 60px;
+  color: #000000;
+  font-size: 36px;
+  width: auto;
+  padding: 0;
+
+  &:hover {
+    background: transparent;
+    box-shadow: none;
+    color: #60a1d4;
+  }
+
+  &:active {
+    transform: none;
+    box-shadow: none;
+  }
+`;
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -48,7 +159,7 @@ const TextArea = styled.textarea`
 
   &:focus {
     outline: none;
-    border-color: #4a90e2;
+    border-color: #60a1d4;
   }
 `;
 
@@ -61,20 +172,7 @@ const ButtonContainer = styled.div`
   width: 99%;
 `;
 
-const FormButtonStyled = styled(StyledButton)`
-  width: 40%;
-  max-width: 200px;
-  margin: 20px auto;
-  display: block;
-  text-align: left;
-`;
-
-const CompleteButtonStyled = styled(StyledButton)`
-  text-align: center;
-  margin-top: 40px;
-`;
-
-const ModalButtonStyled = styled(StyledButton)`
+const ModalButton = styled(StyledButton)`
   width: 80px;
   padding: 8px 16px;
   font-size: 1rem;
@@ -112,7 +210,6 @@ const Page2_1: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  // 添加一个函数来获取按钮文字
   const getButtonText = (type: string) => {
     switch (type) {
       case "word":
@@ -133,75 +230,70 @@ const Page2_1: React.FC = () => {
       <Header>
         <div className="left-container">
           <Link to="/homepage2" className="link-style">
-            HomePage2
+            Home page
           </Link>
         </div>
+        <div className="welcome-text">love will find the cat</div>
         <div className="right-container">
           <div></div>
         </div>
       </Header>
 
       <MainContent>
-        <BackgroundImageContainer2 className="background-image1">
-          <img src="/cats3.gif" className="image1" alt="cat animation" />
-          <img
-            src="/meowwelcome.png"
-            className="image2"
-            alt="Meowstar welcome"
-          />
-          <form
-            onSubmit={handleSubmit}
-            style={{ width: "100%", maxWidth: "500px", padding: "0 20px" }}
-          >
-            <FormButtonStyled type="button" onClick={handleWordClick}>
-              {getButtonText("word")}
-            </FormButtonStyled>
+        <MainContainer>
+          <CatImage src="/cats3.gif" alt="cat animation" />
+          <FormContainer>
+            <form onSubmit={handleSubmit}>
+              <FormButton type="button" onClick={handleWordClick}>
+                {getButtonText("word")}
+              </FormButton>
 
-            <FormButtonStyled
-              type="button"
-              onClick={() => document.getElementById("image")?.click()}
-            >
-              {getButtonText("photo")}
-            </FormButtonStyled>
-            <input
-              id="image"
-              type="file"
-              accept="image/*"
-              onChange={(e) => setSelectedImage(e.target.files?.[0] || null)}
-              style={{ display: "none" }}
-            />
+              <FormButton
+                type="button"
+                onClick={() => document.getElementById("image")?.click()}
+              >
+                {getButtonText("photo")}
+              </FormButton>
+              <input
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={(e) => setSelectedImage(e.target.files?.[0] || null)}
+                style={{ display: "none" }}
+              />
 
-            <FormButtonStyled
-              type="button"
-              onClick={() => document.getElementById("audio")?.click()}
-            >
-              {getButtonText("audio")}
-            </FormButtonStyled>
-            <input
-              id="audio"
-              type="file"
-              accept="audio/*"
-              onChange={(e) => setSelectedAudio(e.target.files?.[0] || null)}
-              style={{ display: "none" }}
-            />
+              <FormButton
+                type="button"
+                onClick={() => document.getElementById("audio")?.click()}
+              >
+                {getButtonText("audio")}
+              </FormButton>
+              <input
+                id="audio"
+                type="file"
+                accept="audio/*"
+                onChange={(e) => setSelectedAudio(e.target.files?.[0] || null)}
+                style={{ display: "none" }}
+              />
 
-            <FormButtonStyled
-              type="button"
-              onClick={() => document.getElementById("video")?.click()}
-            >
-              {getButtonText("video")}
-            </FormButtonStyled>
-            <input
-              id="video"
-              type="file"
-              accept="video/*"
-              onChange={(e) => setSelectedVideo(e.target.files?.[0] || null)}
-              style={{ display: "none" }}
-            />
+              <FormButton
+                type="button"
+                onClick={() => document.getElementById("video")?.click()}
+              >
+                {getButtonText("video")}
+              </FormButton>
+              <input
+                id="video"
+                type="file"
+                accept="video/*"
+                onChange={(e) => setSelectedVideo(e.target.files?.[0] || null)}
+                style={{ display: "none" }}
+              />
 
-            <CompleteButtonStyled type="submit">complete</CompleteButtonStyled>
-          </form>
-        </BackgroundImageContainer2>
+              <CompleteButton type="submit">complete</CompleteButton>
+            </form>
+          </FormContainer>
+        </MainContainer>
       </MainContent>
 
       {isModalOpen && (
@@ -214,16 +306,16 @@ const Page2_1: React.FC = () => {
               autoFocus
             />
             <ButtonContainer>
-              <ModalButtonStyled onClick={handleDescriptionSubmit}>
+              <ModalButton onClick={handleDescriptionSubmit}>
                 Submit
-              </ModalButtonStyled>
+              </ModalButton>
             </ButtonContainer>
           </ModalContent>
         </ModalOverlay>
       )}
 
       <Footer>
-        <p>Footer Content</p>
+        <p style={{ fontSize: "24px" }}>Footer Content</p>
       </Footer>
     </PageContainer>
   );

@@ -33,10 +33,12 @@ export const StyledButton = styled.button`
 
 export const PageContainer = styled.div`
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   font-family: 'Mina', sans-serif;
+  overflow: hidden;
 `;
 
 export const Header = styled.header`
@@ -47,6 +49,7 @@ export const Header = styled.header`
   background: transparent;
   position: relative;
   font-family: 'Mina', sans-serif;
+  flex-shrink: 0;
 
   .welcome-text {
     position: absolute;
@@ -62,8 +65,8 @@ export const Header = styled.header`
     content: '';
     position: absolute;
     bottom: 0;
-    left: 60px;
-    right: 60px;
+    left: 80px;
+    right: 80px;
     height: 1.5px;
     background: rgba(96, 161, 212, 0.5);
   }
@@ -118,6 +121,21 @@ export const MainContent = styled.main`
   padding-top: 2vh;
   position: relative;
   background: transparent;
+  width: 100%;
+  overflow: auto;
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(96, 161, 212, 0.3);
+    border-radius: 4px;
+  }
 `;
 
 export const Footer = styled.footer`
@@ -127,6 +145,8 @@ export const Footer = styled.footer`
   box-shadow: none;
   color: #666;
   font-family: 'Mina', sans-serif;
+  flex-shrink: 0;
+  position: relative;
 `;
 
 export const BackgroundImageContainer = styled.div`
@@ -205,4 +225,4 @@ export const BackgroundImageContainer2 = styled(BackgroundImageContainer)`
   background-position: center;
   background-size: contain;
   opacity: 0.8;
-`; 
+`;
