@@ -1,0 +1,85 @@
+/* App.css 为完成模块 , 以下部分为css样式文件引入 */
+
+
+
+/*模块化布局 - 主模块 , 子模块在styles*/
+@import url('./styles/global.css');
+@import url('./styles/header.css');
+@import url('./styles/mainbody.css');
+@import url('./styles/footer.css');
+
+/*, 独立子样式模块*/
+@import url('./styles/button.css');
+@import url('./styles/label.css');
+
+
+@import url('./styles/cat.css');
+@import url('./styles/catchatbox.css');
+
+
+/*全局核心布局用于包裹，模块化布局 - 主模块 header,main-content,footer - 子模块 in styles */
+
+.page-container {
+  display: flex;
+  flex-direction: column; /*垂直排列各部分 h\m\f*/
+  min-height: 100vh; /*保证页面高度至少占满整个视窗*/
+
+}
+
+/* 横线样式 */
+.divider {
+  width: 80%;  /* 横线宽度占父容器的90% */
+  margin: 10px auto; /* 居中显示横线 */
+  border-top: 1.5px solid #60a1d4;  /* 线条颜色和粗细 */
+  opacity: 0.6;
+
+  /*绝对定位*/
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #45a049;
+}

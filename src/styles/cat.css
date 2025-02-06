@@ -1,0 +1,29 @@
+/*cat css*/
+.cat-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .cat-description {
+    text-align: left;
+    margin-top: 10px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .cat-actions {
+    margin-top: 30px;
+  }
+  
+  
+  
+  .cat-details {
+    margin-left: 20px;
+    text-align: left;
+    max-width: 500px;
+  }
+  
+  

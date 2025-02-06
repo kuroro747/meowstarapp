@@ -1,0 +1,50 @@
+/* 全局通用样式 */
+
+
+/* 引入全局字体Mina */
+@font-face {
+    font-family: 'Mina';
+    src: url('../assets/fonts/Mina-Bold.ttf') format('ttf'),
+         url('../assets/fonts/Mina-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+@font-face {
+    font-family: 'BubblegumSans';
+    src: url('../assets/fonts/BubblegumSans-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+/*设置字体和字体大小*/
+body {
+    font-family: Mina , sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  
+  }
+
+
+/* 让所有内容居中 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+
+/* 为所有链接去除下划线 */
+a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+/* 设置全局背景颜色 */
+body {
+    background-color: #f7f7f7;
+  }
+
+
+

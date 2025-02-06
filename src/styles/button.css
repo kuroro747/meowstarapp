@@ -1,0 +1,28 @@
+/*button相关css*/
+
+
+button {
+  background-color: #f2efef00;
+  font-size: 1rem;
+  color: #00000050;
+  padding: 10px 20px;
+  border: 0px solid #cdc1c1;
+
+  /*border-radius: 8px; /*设置按钮的圆角，圆角半径为 8px，按钮的角将变得更加圆润。*/
+  margin: 10x;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  margin-left: auto;  /* 将按钮推到父容器的右侧 */
+  align-self: flex-end;  /* 将按钮垂直对齐到底部 */
+}
+
+button:hover {
+    background-color: #e6df1bd6;
+    opacity: 0.8; /* 设置透明度为 80% */
+  }
+
+
+link {
+  font-weight: bold;
+}

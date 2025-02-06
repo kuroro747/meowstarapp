@@ -1,0 +1,30 @@
+/*底部样式*/
+
+/*1.联系 2.出品相关样式*/
+
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  /* 适配小屏幕设备 */
+  @media (max-width: 768px) {
+    .footer {
+      text-align: center; /* 居中对齐 */
+    }
+  
+    .footer a {
+      display: block; /* 垂直排列链接 */
+      margin: 10px 0;
+    }
+  }
+  

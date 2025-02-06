@@ -1,0 +1,87 @@
+/*头部导航栏样式*/
+
+/* flex 二级被 .page-container包裹 */
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px 30px;
+    
+    position: fixed; /*把header固定在顶部*/
+
+    top: 0;
+    width: 100%;
+    background: #f7f7f7;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0); /*不添加容器阴影*/
+
+
+    z-index: 1000; /* 确保 header 层级较高 */
+
+  }
+  
+
+  .header nav {
+    display: flex;
+    gap: 20px;
+  }
+
+  
+  .header a {
+    text-decoration: none;
+    color: black;
+  }
+
+
+  .header img {
+    size: 50% 50% ; /*待更新头部图片大小 可用于图片logo*/
+  }
+  
+
+
+/*link 样式css*/
+
+    .header .link-style
+    {
+        color: rgb(0, 0, 0);
+        text-decoration: none; /* 去除下划线 */
+        /*font-weight: bold;*/
+        font-size: x-large;
+    
+        border-bottom: 0px solid #308ec9d6; /*把线下去掉*/
+        padding: 10px;
+        margin: 10px 0;
+
+    }
+
+/*link 悬停样式*/
+
+    .header .link-style:hover
+    {
+        color: rgb(36, 128, 203);  /* 鼠标悬停时改变颜色 */
+
+    }
+
+
+    /*link 元素定位*/
+
+    .header .link-1 {
+        position:absolute; /*在header中绝对布局*/
+        left: 255px;  /* 第一个链接放置在左上角 */
+        top:40px;
+    }
+
+    .header .link-2 {
+        position:absolute; /*在header中绝对布局*/
+        right: 375px; /* 第三个链接放置在右上角 */
+        top:40px;
+    }
+    
+    .header .link-3 {
+        position:absolute; /*在header中绝对布局*/
+        right: 255px; /* 第三个链接放置在右上角 */
+        top:40px;
+    }
+
+
+
+

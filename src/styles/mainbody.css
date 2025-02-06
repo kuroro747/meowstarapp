@@ -1,0 +1,219 @@
+/*主内容Main content样式、详情页样式*/
+
+@import url('./label.css');
+
+/* flex 二级被 .page-container包裹 */
+
+.mainbody {
+    flex: 1; /*让内容部分占满剩余空间*/
+
+    justify-content: center;     /* 垂直居中 */
+    align-items: center;         /* 水平居中（可选，根据需要） */
+
+    padding: 20px;               /* 为内容添加一些内边距（可选） */
+    position: relative;  /*相对定位*/
+
+    background: #f7f7f7;
+    
+}
+
+/*图片样式*/
+
+.mainbody .image1 { /*img cats.gif*/
+
+    /*图片大小*/
+    object-fit: contain; /* 保持宽高比，并确保图片不被裁剪 */
+    height: auto; /* 根据宽度自动调整高度，保持宽高比 */
+    max-width: 35%;
+
+    /*绝对定位*/
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+.mainbody .image2 { /* meowstar 相对 cats.gif 定位*/
+
+    /*图片大小*/
+    object-fit: contain; /* 保持宽高比，并确保图片不被裁剪 */
+    height: auto; /* 根据宽度自动调整高度，保持宽高比 */
+    max-width: 35%;
+
+    /*绝对定位*/
+    position: absolute;
+    bottom: 550px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+.mainbody .image3 { /*img catsh41.gif*/
+
+    /*图片大小*/
+    object-fit: contain; /* 保持宽高比，并确保图片不被裁剪 */
+    height: auto; /* 根据宽度自动调整高度，保持宽高比 */
+    max-width: 25%;
+
+    /*绝对定位*/
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mainbody .image4 { /* meowstar 相对 catsh41.gif 定位*/
+
+    /*图片大小*/
+    object-fit: contain; /* 保持宽高比，并确保图片不被裁剪 */
+    height: auto; /* 根据宽度自动调整高度，保持宽高比 */
+    max-width: 35%;
+
+    /*绝对定位*/
+    position: absolute;
+    top: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.mainbody .background-image1{
+    /*背景图*/
+    background-image: url('../../public/Ellipse\ 6.png'); /* 背景图的路径 */
+    background-size: contain;   /* 使背景图覆盖整个容器 */
+    background-position: 25% 110px; /* 将背景图居中对齐 */
+    background-repeat: no-repeat; /* 不重复背景图 */
+    background-attachment: fixed; /* 背景固定，滚动页面时不会滚动 */
+    height: 100vh; /* 设置页面高度，确保背景图覆盖整个视口 */
+    margin: 0; /* 去除默认的页面外边距 */
+}
+
+.mainbody .background-image2{
+    /*背景图*/
+    background-image: url('../../public/Ellipse\ 7.png'); /* 背景图的路径 */
+    background-size: contain;   /* 使背景图覆盖整个容器 */
+    background-position: 180px 110px; /* 将背景图居中对齐 */
+    background-repeat: no-repeat; /* 不重复背景图 */
+    background-attachment: fixed; /* 背景固定，滚动页面时不会滚动 */
+    height: 100vh; /* 设置页面高度，确保背景图覆盖整个视口 */
+    margin: 0; /* 去除默认的页面外边距 */
+}
+
+
+.mainbody .link-style
+{
+    color: rgb(0, 0, 0);
+    text-decoration: none; /* 去除下划线 */
+    /*font-weight: bold;*/
+    font-size: 24px;
+
+    border: 0px solid #308ec9d6;
+    padding: 18px;
+    margin: 10px 0;
+
+}
+
+/*link 悬停样式*/
+
+.mainbody .link-style1:hover
+{
+    color: rgb(36, 128, 203);  /* 鼠标悬停时改变颜色 */
+
+}
+
+
+/*link 元素定位*/
+
+.mainbody .link-4 {
+    position: absolute;
+    bottom: 325px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.mainbody .link-5 {
+    position: absolute;
+    bottom: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mainbody .link-6{
+    position: absolute;
+    bottom: 400px;
+    left: 65%;
+    transform: translateX(-50%);
+}
+
+
+
+/*文字样式 除了全局样式外，用于product特定字体定义的样式*/
+
+
+.mainbody pre{
+
+    /*绝对定位*/
+    position: absolute;
+    bottom: 625px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    text-align: center;
+
+    /*font-family: BubblegumSans , sans-serif;*/
+    font-size: x-large;
+
+    padding: 10px;
+    border-radius: 5px;
+    white-space: pre-wrap;  /* 允许换行 */
+
+    /*字体大小*/
+
+}
+    
+
+
+
+/*输入框 */
+
+.mainbody .formposition{
+    /*LoginForm & signupForm定位*/
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/*1.文本输入框 2.上传文件*/
+.mainbody .form-container{
+
+    /*.form-container 定位*/
+    position: absolute;
+    bottom: 150px;
+    left: 75%;
+    transform: translateX(-50%);
+}
+
+
+/*按钮样式*/
+
+
+/*特殊样式 1.猫对话框样式 2.动态猫样式*/
+
+.mainbody .minicatchatbox {
+
+    flex: 1; /*让内容部分占满剩余空间*/
+    
+
+    justify-content: center;     /* 垂直居中 */
+    align-items: center;         /* 水平居中（可选，根据需要） */
+    position: absolute;  /*相对定位*/
+    bottom: 800px;
+    left: 10%;
+
+    width: 80%;  /* 容器宽度设置为父元素宽度的80% */
+    height: 300px; /* 固定高度 */
+
+    
+
+}

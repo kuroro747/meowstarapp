@@ -1,0 +1,152 @@
+/* 整体容器布局 */
+.catchat_container {
+    display: flex;
+    height: 100vh;
+    font-family: 'Mina', sans-serif;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  /* 左侧对话框区域 */
+  .catchat_left {
+    flex: 1;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /*margin-right: 0px;*/
+    height: 70vh; /* 固定高度 */
+  }
+  
+  .chat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    flex-grow: 1; /* 让对话框区域占据可用空间 */
+    overflow: hidden; /* 避免溢出 */
+  }
+  
+  .chat-box .messages {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 70vh; /* 固定消息框高度 */
+    overflow-y: auto; /* 允许滚动 */
+    padding-right: 10px;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #bbb #f1f1f1;
+  }
+
+  .chat-box .messages::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .chat-box .messages::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+    border-radius: 10px;
+  }
+  
+  .chat-box .messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  
+  .chat-box .message {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f1f1f1;
+    max-width: 70%; /* 限制消息宽度 */
+  }
+  
+  .message.from-cat {
+    background: #f5f5f5;
+    align-self: flex-start;
+  }
+  
+  .message.from-user {
+    background: #d1f7d7;
+    align-self: flex-end;
+  }
+  
+
+
+  /* 输入框和发送按钮区域 */
+.chat-box .input-area {
+    display: flex;
+    gap: 30px;
+    padding-top: 10px;
+    height: 70px; /* 固定输入框区域高度 */
+  }
+
+
+  .chat-box input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  .chat-box button {
+    background-color: #3ac6a0;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .chat-box button:hover {
+    background-color: #438bff;
+  }
+
+
+  
+  /* 右侧猫咪展示区域 */
+  .catchat_right {
+    flex: 1;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    /*margin-left: 20px;*/
+    height: 70vh; /* 固定高度 */
+  }
+  
+  .cat-avatar {
+    margin-bottom: 500px;
+  }
+  
+  .cat-avatar img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    /*border-radius: 50%;*/
+    border: 5px solid #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .cat-avatar img:hover {
+    transform: scale(1.05);
+  }
+  
+  .time-info {
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+    background-color: #3bffbe99;
+    padding: 12px;
+    margin-top: 50px;
+    width: 90%;
+  }
+  

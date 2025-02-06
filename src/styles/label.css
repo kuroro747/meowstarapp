@@ -1,0 +1,62 @@
+/*label 表单相关css*/
+/*Login & SignUp Form 类id选择器*/
+
+.mainbody label{
+  font-size: small;
+  font-weight: bold;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1px;
+  width: 300px ;
+  padding: 20px;
+
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0);
+  border-radius: 0px;
+  
+}
+
+  
+input {
+    flex:0 1 90%;
+
+    padding: 18px;
+    margin: 10px 0;
+    border-radius: 0px;
+    border: 0.01px solid #e6df1bd6;
+
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.697);
+
+  }
+
+input:focus {
+    border: 1px solid #2480CB;  /* 点击后边框颜色改变为绿色 */
+    outline: none;  /* 去除输入框的外部轮廓 */
+}
+  
+
+
+
+textarea, input[type="file"] {
+    margin: 20px 0;
+    padding: 10px;
+    width: 90%;
+    max-width: 300px;
+
+    border-radius: 0px;
+
+  }
+  
+
+textarea {
+
+    min-height: 100px; /*最小高度 & 最大高度 输入文本框*/
+    max-height: 300px;
+
+}
+
