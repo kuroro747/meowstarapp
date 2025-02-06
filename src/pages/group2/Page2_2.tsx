@@ -14,6 +14,7 @@ interface LocationState {
   image: File | null;
   audio: File | null;
   video: File | null;
+  serverData: any; // 添加服务器数据
 }
 
 // 添加新的样式组件
@@ -59,6 +60,23 @@ const Avatar = styled.img`
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.6);
+`;
+
+const ServerContent = styled.div`
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(96, 161, 212, 0.3);
+
+  h3 {
+    color: rgba(51, 51, 51, 0.9);
+    margin-bottom: 15px;
+  }
+
+  p {
+    color: rgba(68, 68, 68, 0.9);
+    line-height: 1.8;
+    font-size: 1.1rem;
+  }
 `;
 
 const Page2_2: React.FC = () => {
@@ -121,6 +139,13 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
               <h2>Cat's Introduction</h2>
             </AvatarContainer>
             <p>{catDescription}</p>
+
+            {state?.serverData && (
+              <ServerContent>
+                <h3>Additional Information</h3>
+                <p>{JSON.stringify(state.serverData, null, 2)}</p>
+              </ServerContent>
+            )}
 
             {state?.audio && (
               <div style={{ margin: "20px 0" }}>

@@ -170,6 +170,44 @@ const ModalButton = styled(StyledButton)`
   font-size: 1rem;
 `;
 
+const Toast = styled.div<{ type: "success" | "error" }>`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 40px;
+  background: ${(props) =>
+    props.type === "success"
+      ? "rgba(96, 161, 212, 0.95)"
+      : "rgba(255, 99, 71, 0.95)"};
+  color: white;
+  border-radius: 8px;
+  z-index: 9999;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeInOut 3s ease forwards;
+
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    10% {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+    90% {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -40%);
+    }
+  }
+`;
+
 const Page2_1: React.FC = () => {
   const navigate = useNavigate();
   const [description, setDescription] = useState("");
@@ -177,17 +215,46 @@ const Page2_1: React.FC = () => {
   const [selectedAudio, setSelectedAudio] = useState<File | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toast, setToast] = useState<{
+    show: boolean;
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const fetchCatInfo = async () => {
+    try {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts/1"
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setToast({ show: true, message: "eliza ko", type: "success" });
+      setTimeout(() => setToast(null), 3000);
+      return data;
+    } catch (error) {
+      setToast({ show: true, message: "eliza error", type: "error" });
+      setTimeout(() => setToast(null), 3000);
+      return null;
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/page2_2", {
-      state: {
-        description,
-        image: selectedImage,
-        audio: selectedAudio,
-        video: selectedVideo,
-      },
-    });
+    const serverData = await fetchCatInfo();
+
+    setTimeout(() => {
+      navigate("/page2_2", {
+        state: {
+          description,
+          image: selectedImage,
+          audio: selectedAudio,
+          video: selectedVideo,
+          serverData,
+        },
+      });
+    }, 1500);
   };
 
   const handleWordClick = () => {
@@ -219,6 +286,8 @@ const Page2_1: React.FC = () => {
 
   return (
     <PageContainer>
+      {toast?.show && <Toast type={toast.type}>{toast.message}</Toast>}
+
       <Header>
         <div className="left-container">
           <Link to="/homepage2" className="link-style">

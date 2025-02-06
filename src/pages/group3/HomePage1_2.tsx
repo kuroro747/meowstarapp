@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   PageContainer,
@@ -25,6 +25,7 @@ const ChatMessages = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  scroll-behavior: smooth;
 `;
 
 const MessageBubble = styled.div<{ isUser?: boolean }>`
@@ -47,24 +48,33 @@ const ChatInput = styled.div`
   border-top: 1px solid rgba(255, 255, 255, 0.4);
   display: flex;
   gap: 10px;
+  align-items: center;
 
   input {
     flex: 1;
     padding: 10px;
+    height: 20px;
     background: rgba(255, 255, 255, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 20px;
+    border-radius: 0;
     font-size: 14px;
     outline: none;
+    line-height: 20px;
 
     &:focus {
-      border-color: #4a90e2;
+      outline: none;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.5);
     }
   }
 
   ${StyledButton} {
     padding: 10px 20px;
     font-size: 14px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -183,9 +193,28 @@ const MovingBackground = styled.div`
   }
 `;
 
+const defaultCatResponses = [
+  "喵~ 今天天气真好呢！",
+  "我刚刚抓到了一只小飞虫！",
+  "主人，我饿了...",
+  "让我想想...喵喵喵~",
+  "你说得对，不过我更想睡觉",
+  "要不要一起玩毛线球？",
+];
+
+const catGifs = [
+  "/llucymeoww.gif",
+  "/lucywink2.gif",
+  "/rest.gif",
+  "/sleep.gif",
+  "/tail.gif",
+];
+
 const HomePage1_2: React.FC = () => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState("");
   const [treatCount, setTreatCount] = useState(1);
+  const [currentCatGif, setCurrentCatGif] = useState(catGifs[0]);
   const [messages, setMessages] = useState([
     { type: "cat", text: "meow~~" },
     { type: "human", text: "hi~" },
@@ -193,14 +222,56 @@ const HomePage1_2: React.FC = () => {
     { type: "cat", text: "not bad~~~~heh" },
   ]);
 
-  const handleSend = () => {
+  // 添加动图切换效果
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * catGifs.length);
+      setCurrentCatGif(catGifs[randomIndex]);
+    }, 10000); // 改为每10秒切换一次
+
+    return () => clearInterval(interval); // 清理定时器
+  }, []);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const fetchCatResponse = async () => {
+    try {
+      const response = await fetch("https://meowfacts.herokuapp.com/");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      // 将猫咪事实改写成对话形式
+      const catFact = `喵~ 让我告诉你一个有趣的事实：${data.data[0]} eliza ko`;
+      return catFact;
+    } catch (error) {
+      // 如果请求失败，使用默认回复
+      const randomResponse =
+        defaultCatResponses[
+          Math.floor(Math.random() * defaultCatResponses.length)
+        ];
+      return randomResponse + " eliza error";
+    }
+  };
+
+  const handleSend = async () => {
     if (message.trim()) {
+      // 添加用户消息
       setMessages([...messages, { type: "human", text: message }]);
       setMessage("");
 
-      // 模拟猫咪回复
+      // 获取猫咪回复
+      const catResponse = await fetchCatResponse();
+
+      // 添加猫咪回复
       setTimeout(() => {
-        setMessages((prev) => [...prev, { type: "cat", text: "meow~ meow~" }]);
+        setMessages((prev) => [...prev, { type: "cat", text: catResponse }]);
       }, 1000);
     }
   };
@@ -248,6 +319,7 @@ const HomePage1_2: React.FC = () => {
                   </MessageBubble>
                 </ChatMessage>
               ))}
+              <div ref={messagesEndRef} />
             </ChatMessages>
             <ChatInput>
               <input
@@ -262,7 +334,13 @@ const HomePage1_2: React.FC = () => {
           </ChatContainer>
 
           <RightSection>
-            <CatImage src="/lucywink.gif" alt="Cat winking" />
+            <CatImage
+              src={currentCatGif}
+              alt="Cat Animation"
+              style={{
+                transition: "opacity 0.5s ease-in-out", // 添加淡入淡出效果
+              }}
+            />
             <TreatIcon onClick={handleTreatClick} style={{ cursor: "pointer" }}>
               <img src="/cat-treat.png" alt="Cat treat" />
               <div>Cat treat +{treatCount}</div>
