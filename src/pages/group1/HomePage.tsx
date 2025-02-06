@@ -7,7 +7,7 @@ import {
   Header,
   MainContent,
   Footer,
-  BackgroundImageContainer,
+  StyledButton,
 } from "../../styles/SharedStyles";
 import styled from "styled-components";
 
@@ -15,6 +15,70 @@ interface UserInfo {
   username: string;
   email: string;
 }
+
+const TitleImage = styled.img`
+  width: 900px;
+  height: auto;
+  margin-top: -260px;
+  position: relative;
+  z-index: 2;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("/Ellipse6.png");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 0;
+    pointer-events: none;
+    left: -20%;
+    bottom: -10%;
+  }
+`;
+
+const CatImage = styled.img`
+  width: 800px;
+  height: auto;
+  margin-top: 48px;
+  position: relative;
+  z-index: 1;
+`;
+
+const LinksContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  margin-top: 132px;
+  position: relative;
+  z-index: 2;
+
+  .link-style {
+    font-size: 36px;
+    color: #000000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #60a1d4;
+      text-decoration: none;
+    }
+  }
+`;
 
 const FootprintBackground = styled.div`
   position: fixed;
@@ -61,64 +125,59 @@ const HomePage: React.FC = () => {
   return (
     <PageContainer>
       <FootprintBackground />
-      <Header style={{ position: "relative", zIndex: 2 }}>
+      <Header>
         <div className="left-container">
-          <div></div>
+          <Link to="/" className="link-style">
+            Home page
+          </Link>
         </div>
+        <div className="welcome-text">love will find the cat</div>
         <div className="right-container">
           {currentUser ? (
             <>
-              <span style={{ color: "#666" }}>
+              <span style={{ color: "#666", fontSize: "24px" }}>
                 Welcome, {currentUser.username}
               </span>
-              <button
+              <StyledButton
                 onClick={handleLogout}
-                className="link-style"
                 style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: "0.5vw 1vw",
+                  padding: "8px 24px",
+                  fontSize: "24px",
                 }}
               >
                 Logout
-              </button>
+              </StyledButton>
             </>
           ) : (
             <>
               <Link to="/login" className="link-style">
-                Login
+                login
               </Link>
               <Link to="/signup" className="link-style">
-                Sign Up
+                sign up
               </Link>
             </>
           )}
         </div>
       </Header>
 
-      <MainContent style={{ position: "relative", zIndex: 2 }}>
-        <BackgroundImageContainer className="background-image1">
-          <img src="/cats.gif" className="image1" alt="cat animation" />
-          <img
-            src="/meowwelcome.png"
-            className="image2"
-            alt="Meowstar welcome"
-          />
-
-          <div className="links-container">
+      <MainContent>
+        <MainContainer>
+          <CatImage src="/cats.gif" alt="cat animation" />
+          <TitleImage src="/meowwelcome.png" alt="Meow Star" />
+          <LinksContainer>
             <Link to="/homepage1_2" className="link-style">
               see what your cat is doing on Meow star
             </Link>
             <Link to="/homepage2" className="link-style">
               search for your cat
             </Link>
-          </div>
-        </BackgroundImageContainer>
+          </LinksContainer>
+        </MainContainer>
       </MainContent>
 
-      <Footer style={{ position: "relative", zIndex: 2 }}>
-        <p>Footer Content</p>
+      <Footer>
+        <p style={{ fontSize: "24px" }}>Footer Content</p>
       </Footer>
     </PageContainer>
   );

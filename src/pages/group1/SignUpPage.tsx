@@ -7,6 +7,7 @@ import {
   MainContent,
   Footer,
   BackgroundImageContainer,
+  StyledButton,
 } from "../../styles/SharedStyles";
 
 interface UserInfo {
@@ -139,9 +140,7 @@ const SignUpPage: React.FC = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
               />
-              <button type="submit" className="submit-button">
-                Sign Up
-              </button>
+              <StyledButton type="submit">Sign Up</StyledButton>
             </form>
           </div>
         </BackgroundImageContainer>

@@ -6,43 +6,9 @@ import {
   MainContent,
   Footer,
   BackgroundImageContainer2,
+  StyledButton,
 } from "../../styles/SharedStyles";
 import styled from "styled-components";
-
-const FormButton = styled.button`
-  width: 40%;
-  max-width: 200px;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  font-size: 1.1rem;
-  color: rgba(0, 0, 0, 0.8);
-  text-align: left;
-  margin: 20px auto;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2), 0 1px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  display: block;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.35);
-    transform: translateY(-2px);
-  }
-`;
-
-const CompleteButton = styled(FormButton)`
-  text-align: center;
-  background: rgba(74, 144, 226, 0.3);
-  color: white;
-  font-weight: 500;
-  margin-top: 40px;
-
-  &:hover {
-    background: rgba(53, 122, 189, 0.4);
-  }
-`;
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -95,59 +61,41 @@ const ButtonContainer = styled.div`
   width: 99%;
 `;
 
-const ModalButton = styled.button`
-  padding: 8px 16px;
-  background: rgba(74, 144, 226, 0.3);
-  backdrop-filter: blur(8px);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 80px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+const FormButtonStyled = styled(StyledButton)`
+  width: 40%;
+  max-width: 200px;
+  margin: 20px auto;
+  display: block;
+  text-align: left;
+`;
 
-  &:hover {
-    background: rgba(53, 122, 189, 0.4);
-    transform: translateY(-2px);
-  }
+const CompleteButtonStyled = styled(StyledButton)`
+  text-align: center;
+  margin-top: 40px;
+`;
+
+const ModalButtonStyled = styled(StyledButton)`
+  width: 80px;
+  padding: 8px 16px;
+  font-size: 1rem;
 `;
 
 const Page2_1: React.FC = () => {
+  const navigate = useNavigate();
   const [description, setDescription] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [selectedAudio, setSelectedAudio] = useState<File | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // 如果没有输入描述和图片，使用默认值
-    const catDescription =
-      description ||
-      `Lucy is a nine-year-old cat who arrived at Meow Star in October 2024.
-She has a beautiful black and white coat, with a distinctive patch of white fur on her chest and belly.
-Lucy is quite the character—she loves to scratch the yellow sofa.
-Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys with great enthusiasm.`;
-
-    const catImage = selectedImage
-      ? URL.createObjectURL(selectedImage)
-      : "/lucywink.gif"; // 添加默认图片
-
-    // 创建音频和视频的 URL（如果有上传的话）
-    const catAudio = selectedAudio ? URL.createObjectURL(selectedAudio) : null;
-    const catVideo = selectedVideo ? URL.createObjectURL(selectedVideo) : null;
-
-    // 导航到 Page2_2 并传递数据
     navigate("/page2_2", {
       state: {
-        description: catDescription,
-        image: catImage,
-        audio: catAudio,
-        video: catVideo,
+        description,
+        image: selectedImage,
+        audio: selectedAudio,
+        video: selectedVideo,
       },
     });
   };
@@ -205,16 +153,16 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
             onSubmit={handleSubmit}
             style={{ width: "100%", maxWidth: "500px", padding: "0 20px" }}
           >
-            <FormButton type="button" onClick={handleWordClick}>
+            <FormButtonStyled type="button" onClick={handleWordClick}>
               {getButtonText("word")}
-            </FormButton>
+            </FormButtonStyled>
 
-            <FormButton
+            <FormButtonStyled
               type="button"
               onClick={() => document.getElementById("image")?.click()}
             >
               {getButtonText("photo")}
-            </FormButton>
+            </FormButtonStyled>
             <input
               id="image"
               type="file"
@@ -223,12 +171,12 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
               style={{ display: "none" }}
             />
 
-            <FormButton
+            <FormButtonStyled
               type="button"
               onClick={() => document.getElementById("audio")?.click()}
             >
               {getButtonText("audio")}
-            </FormButton>
+            </FormButtonStyled>
             <input
               id="audio"
               type="file"
@@ -237,12 +185,12 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
               style={{ display: "none" }}
             />
 
-            <FormButton
+            <FormButtonStyled
               type="button"
               onClick={() => document.getElementById("video")?.click()}
             >
               {getButtonText("video")}
-            </FormButton>
+            </FormButtonStyled>
             <input
               id="video"
               type="file"
@@ -251,7 +199,7 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
               style={{ display: "none" }}
             />
 
-            <CompleteButton type="submit">complete</CompleteButton>
+            <CompleteButtonStyled type="submit">complete</CompleteButtonStyled>
           </form>
         </BackgroundImageContainer2>
       </MainContent>
@@ -266,9 +214,9 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
               autoFocus
             />
             <ButtonContainer>
-              <ModalButton onClick={handleDescriptionSubmit}>
+              <ModalButtonStyled onClick={handleDescriptionSubmit}>
                 Submit
-              </ModalButton>
+              </ModalButtonStyled>
             </ButtonContainer>
           </ModalContent>
         </ModalOverlay>

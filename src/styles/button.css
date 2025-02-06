@@ -1,28 +1,68 @@
 /*button相关css*/
 
-
-button {
-  background-color: #f2efef00;
-  font-size: 1rem;
-  color: #00000050;
-  padding: 10px 20px;
-  border: 0px solid #cdc1c1;
-
-  /*border-radius: 8px; /*设置按钮的圆角，圆角半径为 8px，按钮的角将变得更加圆润。*/
-  margin: 10x;
+/* 按钮基础样式 */
+.button {
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;  /* 移除圆角 */
+  background-color: rgba(74, 144, 226, 0.3);
+  backdrop-filter: blur(8px);
+  color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  margin-left: auto;  /* 将按钮推到父容器的右侧 */
-  align-self: flex-end;  /* 将按钮垂直对齐到底部 */
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
-button:hover {
-    background-color: #e6df1bd6;
-    opacity: 0.8; /* 设置透明度为 80% */
-  }
+.button:hover {
+  background-color: rgba(53, 122, 189, 0.4);
+  transform: translateY(-2px);
+}
 
+/* 提交按钮样式 */
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background: rgba(74, 144, 226, 0.3);
+  backdrop-filter: blur(8px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
 
-link {
-  font-weight: bold;
+.submit-button:hover {
+  background: rgba(53, 122, 189, 0.4);
+  transform: translateY(-2px);
+}
+
+/* 链接样式 */
+a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+a:hover {
+  color: #60a1d4;
+  text-decoration: underline;
+}
+
+/* 特殊链接样式（用于导航栏等地方） */
+.link-style {
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  font-size: 1rem;
+}
+
+.link-style:hover {
+  color: #60a1d4;
+  text-decoration: underline;
 }

@@ -1,7 +1,5 @@
 /* App.css 为完成模块 , 以下部分为css样式文件引入 */
 
-
-
 /*模块化布局 - 主模块 , 子模块在styles*/
 @import url('./styles/global.css');
 @import url('./styles/header.css');
@@ -12,10 +10,8 @@
 @import url('./styles/button.css');
 @import url('./styles/label.css');
 
-
 @import url('./styles/cat.css');
 @import url('./styles/catchatbox.css');
-
 
 /*全局核心布局用于包裹，模块化布局 - 主模块 header,main-content,footer - 子模块 in styles */
 
@@ -23,7 +19,6 @@
   display: flex;
   flex-direction: column; /*垂直排列各部分 h\m\f*/
   min-height: 100vh; /*保证页面高度至少占满整个视窗*/
-
 }
 
 /* 横线样式 */
@@ -69,17 +64,69 @@ html, body {
   overflow-x: hidden;
 }
 
+/* 按钮基础样式 */
 .button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #4CAF50;
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;  /* 移除圆角 */
+  background-color: rgba(74, 144, 226, 0.3);
+  backdrop-filter: blur(8px);
   color: white;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .button:hover {
-  background-color: #45a049;
+  background-color: rgba(53, 122, 189, 0.4);
+  transform: translateY(-2px);
+}
+
+/* 提交按钮样式 */
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  background: rgba(74, 144, 226, 0.3);
+  backdrop-filter: blur(8px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.submit-button:hover {
+  background: rgba(53, 122, 189, 0.4);
+  transform: translateY(-2px);
+}
+
+/* 链接样式 */
+a {
+  color: #4a90e2;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+a:hover {
+  color: #357abd;
+  text-decoration: underline;
+}
+
+/* 特殊链接样式（用于导航栏等地方） */
+.link-style {
+  color: #4a90e2;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  font-size: 1rem;
+}
+
+.link-style:hover {
+  color: #357abd;
+  text-decoration: underline;
 }

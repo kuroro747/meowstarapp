@@ -8,39 +8,14 @@ import {
   MainContent,
   Footer,
   BackgroundImageContainer,
+  StyledButton,
 } from "../../styles/SharedStyles";
-import styled from "styled-components";
 
 interface UserInfo {
   username: string;
   email: string;
   password: string;
 }
-
-const StyledButton = styled.button`
-  width: 100%;
-  padding: 12px;
-  background: rgba(74, 144, 226, 0.3);
-  backdrop-filter: blur(8px);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-
-  &:hover {
-    background: rgba(53, 122, 189, 0.4);
-    transform: translateY(-2px);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-`;
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();

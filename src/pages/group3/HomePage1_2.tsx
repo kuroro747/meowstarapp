@@ -5,6 +5,7 @@ import {
   Header,
   MainContent,
   Footer,
+  StyledButton,
 } from "../../styles/SharedStyles";
 import styled from "styled-components";
 
@@ -61,21 +62,9 @@ const ChatInput = styled.div`
     }
   }
 
-  button {
-    background: rgba(74, 144, 226, 0.3);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
+  ${StyledButton} {
     padding: 10px 20px;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-
-    &:hover {
-      background: rgba(53, 122, 189, 0.4);
-      transform: translateY(-2px);
-    }
+    font-size: 14px;
   }
 `;
 
@@ -268,7 +257,7 @@ const HomePage1_2: React.FC = () => {
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
               />
-              <button onClick={handleSend}>Send</button>
+              <StyledButton onClick={handleSend}>Send</StyledButton>
             </ChatInput>
           </ChatContainer>
 
