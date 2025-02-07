@@ -116,7 +116,7 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
       <MainContent>
         <BackgroundImageContainer2 className="background-image1">
           <img
-            src="/lucywink.gif"
+            src="/lucywink2.gif"
             alt="Cat"
             style={{
               maxWidth: "400px",
@@ -129,11 +129,11 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
           <ContentContainer>
             <AvatarContainer>
               <Avatar
-                src={imageUrl || "/lucywink.gif"}
+                src={imageUrl || "/lucywink2.gif"}
                 alt="Cat Avatar"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = "/lucywink.gif";
+                  target.src = "/lucywink2.gif";
                 }}
               />
               <h2>Cat's Introduction</h2>
