@@ -231,7 +231,7 @@ const Page2_1: React.FC = () => {
     navigate("/page2_2", {
       state: {
         description,
-        image: selectedImage,
+        image: selectedImage, // 确保 selectedImage 被正确传递
         audio: selectedAudio,
         video: selectedVideo,
         lucyId: "474e97d0-7b83-0a9b-b4d1-ec3998403541", // 使用固定ID
@@ -358,7 +358,16 @@ const Page2_1: React.FC = () => {
       )}
 
       <Footer>
-        <p style={{ fontSize: "24px" }}>Footer Content</p>
+        <p
+          style={{
+            fontSize: "20px", // 调整字体大小
+            color: "rgba(96, 161, 212, 0.6)",
+            fontWeight: "400",
+          }}
+        >
+          Cats are called Meow Starians, and when they pass away, it's said
+          they’ve returned to Meow Star.
+        </p>
       </Footer>
     </PageContainer>
   );

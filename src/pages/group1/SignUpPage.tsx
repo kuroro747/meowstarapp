@@ -238,7 +238,16 @@ const SignUpPage: React.FC = () => {
       </MainContent>
 
       <Footer>
-        <p style={{ fontSize: "24px" }}>Footer Content</p>
+        <p
+          style={{
+            fontSize: "20px", // 调整字体大小
+            color: "rgba(96, 161, 212, 0.6)",
+            fontWeight: "400",
+          }}
+        >
+          Cats are called Meow Starians, and when they pass away, it's said
+          they’ve returned to Meow Star.
+        </p>
       </Footer>
     </PageContainer>
   );

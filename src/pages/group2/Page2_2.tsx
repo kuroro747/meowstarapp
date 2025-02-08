@@ -9,15 +9,6 @@ import {
 } from "../../styles/SharedStyles";
 import styled from "styled-components";
 
-interface LocationState {
-  description: string;
-  image: File | null;
-  audio: File | null;
-  video: File | null;
-  serverData: any; // 添加服务器数据
-  // 移除 lucyId
-}
-
 // 添加新的样式组件
 const ContentContainer = styled.div`
   backdrop-filter: blur(12px);
@@ -94,14 +85,18 @@ const Page2_2: React.FC = () => {
   const location = useLocation();
   // 使用 LocationState 接口来类型化 state
   const { description, image, audio, video, serverData } =
-    (location.state as LocationState) || {};
+    location.state as any;
   const [imageUrl, setImageUrl] = useState<string>("");
 
   useEffect(() => {
     if (image) {
       const url = URL.createObjectURL(image);
+      console.log("Image URL stored in localStorage:", url); // 调试信息
       setImageUrl(url);
-      return () => URL.revokeObjectURL(url);
+      localStorage.setItem("catAvatar", url);
+      // return () => URL.revokeObjectURL(url); // 暂时移除这行代码
+    } else {
+      localStorage.removeItem("catAvatar"); // 确保在没有上传头像时清除 localStorage 中的 catAvatar
     }
   }, [image]);
 
@@ -214,7 +209,16 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
       </MainContent>
 
       <Footer>
-        <p>Footer Content</p>
+        <p
+          style={{
+            color: "rgba(96, 161, 212, 0.6)",
+            fontSize: "20px", // 调整字体大小
+            fontWeight: "400",
+          }}
+        >
+          Cats are called Meow Starians, and when they pass away, it's said
+          they’ve returned to Meow Star.
+        </p>
       </Footer>
     </PageContainer>
   );

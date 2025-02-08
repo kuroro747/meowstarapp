@@ -55,9 +55,10 @@ const LinksContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 32px;
-  margin-top: 132px;
+  margin-top: 32px; // 原来的 margin-top: 82px;
   position: relative;
   z-index: 2;
+  transform: translateY(-50px); // 向上移动 50px
 
   .link-style {
     font-size: 36px;
@@ -115,7 +116,16 @@ const HomePage2: React.FC = () => {
       </MainContent>
 
       <Footer>
-        <p style={{ fontSize: "24px" }}>Footer Content</p>
+        <p
+          style={{
+            fontSize: "20px", // 调整字体大小
+            color: "rgba(96, 161, 212, 0.6)",
+            fontWeight: "400",
+          }}
+        >
+          Cats are called Meow Starians, and when they pass away, it's said
+          they’ve returned to Meow Star.
+        </p>
       </Footer>
     </PageContainer>
   );

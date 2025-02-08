@@ -224,6 +224,26 @@ const HomePage1_2: React.FC = () => {
     { type: "human", text: "how was your day on meow star ?" },
     { type: "cat", text: "not bad~~~~heh" },
   ]);
+  const defaultAvatar = "/cat-avatar.jpg"; // 默认头像路径
+  const [catAvatar, setCatAvatar] = useState<string | null>(defaultAvatar);
+
+  useEffect(() => {
+    const storedAvatar = localStorage.getItem("catAvatar");
+    console.log("Image URL retrieved from localStorage:", storedAvatar); // 调试信息
+
+    let validAvatar = null;
+    if (storedAvatar) {
+      try {
+        new URL(storedAvatar); // 尝试验证 URL 的有效性
+        validAvatar = storedAvatar;
+      } catch (error) {
+        console.error("Invalid URL in localStorage:", storedAvatar);
+        validAvatar = null;
+      }
+    }
+
+    setCatAvatar(validAvatar || defaultAvatar); // 使用有效的头像或默认头像
+  }, []);
 
   const sendMessage = async (text: string) => {
     setIsLoading(true);
@@ -295,7 +315,7 @@ const HomePage1_2: React.FC = () => {
         setMessages((prev) => [...prev, { type: "human", text: userMessage }]);
 
         // 显示加载状态
-        const loadingMessage = "思考中...";
+        const loadingMessage = "Thinking..."; // 修改提示信息
         setMessages((prev) => [...prev, { type: "cat", text: loadingMessage }]);
 
         // 获取服务器响应
@@ -377,10 +397,14 @@ const HomePage1_2: React.FC = () => {
                   <Avatar
                     src={
                       msg.type === "cat"
-                        ? "/cat-avatar.jpg"
+                        ? catAvatar || defaultAvatar // 确保 catAvatar 有值，否则使用默认头像
                         : "/human-avatar.jpg"
                     }
                     alt={msg.type === "cat" ? "Cat" : "Human"}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = defaultAvatar; // 确保在头像加载失败时使用默认头像
+                    }}
                   />
                   <MessageBubble $isUser={msg.type === "human"}>
                     {msg.text}
@@ -418,7 +442,16 @@ const HomePage1_2: React.FC = () => {
       </MainContent>
 
       <Footer>
-        <p>Footer Content</p>
+        <p
+          style={{
+            color: "rgba(96, 161, 212, 0.6)",
+            fontSize: "20px", // 调整字体大小
+            fontWeight: "400",
+          }}
+        >
+          Cats are called Meow Starians, and when they pass away, it's said
+          they’ve returned to Meow Star.
+        </p>
       </Footer>
     </PageContainer>
   );
