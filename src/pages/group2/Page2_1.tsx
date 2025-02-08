@@ -170,7 +170,7 @@ const ModalButton = styled(StyledButton)`
   font-size: 1rem;
 `;
 
-const Toast = styled.div<{ type: "success" | "error" }>`
+const Toast = styled.div<{ type: "success" | "error" | "warning" }>`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -179,6 +179,8 @@ const Toast = styled.div<{ type: "success" | "error" }>`
   background: ${(props) =>
     props.type === "success"
       ? "rgba(96, 161, 212, 0.95)"
+      : props.type === "warning"
+      ? "rgba(255, 193, 7, 0.95)"
       : "rgba(255, 99, 71, 0.95)"};
   color: white;
   border-radius: 8px;
@@ -218,43 +220,23 @@ const Page2_1: React.FC = () => {
   const [toast, setToast] = useState<{
     show: boolean;
     message: string;
-    type: "success" | "error";
+    type: "success" | "error" | "warning";
   } | null>(null);
-
-  const fetchCatInfo = async () => {
-    try {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts/1"
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setToast({ show: true, message: "eliza ko", type: "success" });
-      setTimeout(() => setToast(null), 3000);
-      return data;
-    } catch (error) {
-      setToast({ show: true, message: "eliza error", type: "error" });
-      setTimeout(() => setToast(null), 3000);
-      return null;
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const serverData = await fetchCatInfo();
+    setToast({ show: true, message: "Processing...", type: "success" });
 
-    setTimeout(() => {
-      navigate("/page2_2", {
-        state: {
-          description,
-          image: selectedImage,
-          audio: selectedAudio,
-          video: selectedVideo,
-          serverData,
-        },
-      });
-    }, 1500);
+    // 直接跳转，使用固定的 Lucy ID
+    navigate("/page2_2", {
+      state: {
+        description,
+        image: selectedImage,
+        audio: selectedAudio,
+        video: selectedVideo,
+        lucyId: "474e97d0-7b83-0a9b-b4d1-ec3998403541", // 使用固定ID
+      },
+    });
   };
 
   const handleWordClick = () => {

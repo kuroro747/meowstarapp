@@ -15,18 +15,16 @@ interface LocationState {
   audio: File | null;
   video: File | null;
   serverData: any; // 添加服务器数据
+  // 移除 lucyId
 }
 
 // 添加新的样式组件
 const ContentContainer = styled.div`
-  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(12px);
   padding: 25px;
   border-radius: 12px;
   max-width: 800px;
   margin: 20px auto;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2), 0 1px 8px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.4);
 
   h2 {
     margin-bottom: 20px;
@@ -79,22 +77,37 @@ const ServerContent = styled.div`
   }
 `;
 
+// 添加新的样式组件
+const Divider = styled.hr`
+  width: 100%;
+  border: none;
+  border-top: 2px dashed #60a1d4;
+  margin: 20px 0;
+`;
+
+// 修改 LucyContainer 组件样式
+const LucyContainer = styled(AvatarContainer)`
+  // 继承 AvatarContainer 的样式
+`;
+
 const Page2_2: React.FC = () => {
   const location = useLocation();
-  const state = location.state as LocationState;
+  // 使用 LocationState 接口来类型化 state
+  const { description, image, audio, video, serverData } =
+    (location.state as LocationState) || {};
   const [imageUrl, setImageUrl] = useState<string>("");
 
   useEffect(() => {
-    if (state?.image) {
-      const url = URL.createObjectURL(state.image);
+    if (image) {
+      const url = URL.createObjectURL(image);
       setImageUrl(url);
       return () => URL.revokeObjectURL(url);
     }
-  }, [state?.image]);
+  }, [image]);
 
   // 使用传递的数据或默认值
   const catDescription =
-    state?.description ||
+    description ||
     `Lucy is a nine-year-old cat who arrived at Meow Star in October 2024.
 She has a beautiful black and white coat, with a distinctive patch of white fur on her chest and belly.
 Lucy is quite the character—she loves to scratch the yellow sofa.
@@ -136,41 +149,58 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
                   target.src = "/lucywink2.gif";
                 }}
               />
-              <h2>Cat's Introduction</h2>
+              <h2>Your Cat's Introduction</h2> {/* 修改文字 */}
             </AvatarContainer>
             <p>{catDescription}</p>
 
-            {state?.serverData && (
+            <Divider />
+
+            <ContentContainer>
+              <LucyContainer>
+                <Avatar src="/cat-avatar.jpg" alt="Lucy Avatar" />
+                <h2>Lucy's Story</h2> {/* 修改文字 */}
+              </LucyContainer>
+              <p>
+                Lucy was a black-and-white female cat born in 2013, who passed
+                away on August 5, 2024. She spent her first four months as a
+                stray before being adopted by Evelyn. During this time, she
+                witnessed the death of a male kitten from her litter in a
+                thunderstorm. Lucy was spayed at 9 months old and shared many
+                milestones with Evelyn, including college graduation, her first
+                job, and two relationships. While Lucy disliked Evelyn's first
+                boyfriend and was indifferent to the second, she always knew
+                Evelyn loved and cared for her. Her happiest moments were when
+                Evelyn opened a can of cat food for her. Independent yet
+                affectionate at times, Lucy had a unique understanding of the
+                world. Evelyn stayed with her until the end.
+              </p>
+            </ContentContainer>
+
+            {serverData && (
               <ServerContent>
                 <h3>Additional Information</h3>
-                <p>{JSON.stringify(state.serverData, null, 2)}</p>
+                <p>{JSON.stringify(serverData, null, 2)}</p>
               </ServerContent>
             )}
 
-            {state?.audio && (
+            {audio && (
               <div style={{ margin: "20px 0" }}>
                 <h3>Cat's Sound</h3>
                 <audio controls>
-                  <source
-                    src={URL.createObjectURL(state.audio)}
-                    type="audio/*"
-                  />
+                  <source src={URL.createObjectURL(audio)} type="audio/*" />
                   Your browser does not support the audio element.
                 </audio>
               </div>
             )}
 
-            {state?.video && (
+            {video && (
               <div style={{ margin: "20px 0" }}>
                 <h3>Cat's Video</h3>
                 <video
                   controls
                   style={{ maxWidth: "100%", maxHeight: "400px" }}
                 >
-                  <source
-                    src={URL.createObjectURL(state.video)}
-                    type="video/*"
-                  />
+                  <source src={URL.createObjectURL(video)} type="video/*" />
                   Your browser does not support the video element.
                 </video>
               </div>

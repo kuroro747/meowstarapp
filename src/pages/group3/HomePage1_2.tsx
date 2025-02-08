@@ -28,17 +28,18 @@ const ChatMessages = styled.div`
   scroll-behavior: smooth;
 `;
 
-const MessageBubble = styled.div<{ isUser?: boolean }>`
+// 修改使用 $isUser 替代 isUser
+const MessageBubble = styled.div<{ $isUser?: boolean }>`
   background-color: ${(props) =>
-    props.isUser ? "rgba(227, 242, 253, 0.6)" : "rgba(245, 245, 245, 0.6)"};
+    props.$isUser ? "rgba(227, 242, 253, 0.6)" : "rgba(245, 245, 245, 0.6)"};
   backdrop-filter: blur(4px);
   padding: 10px 15px;
   border-radius: 18px;
   max-width: 70%;
   font-size: clamp(14px, 1.6vw, 16px);
-  border-top-left-radius: ${(props) => (props.isUser ? "18px" : "4px")};
-  border-top-right-radius: ${(props) => (props.isUser ? "4px" : "18px")};
-  margin: ${(props) => (props.isUser ? "0 0 0 auto" : "0 auto 0 0")};
+  border-top-left-radius: ${(props) => (props.$isUser ? "18px" : "4px")};
+  border-top-right-radius: ${(props) => (props.$isUser ? "4px" : "18px")};
+  margin: ${(props) => (props.$isUser ? "0 0 0 auto" : "0 auto 0 0")};
 `;
 
 const ChatInput = styled.div`
@@ -98,13 +99,14 @@ const ChatContainer = styled.div`
   }
 `;
 
-const ChatMessage = styled.div<{ isUser?: boolean }>`
+// 修改使用 $isUser 替代 isUser
+const ChatMessage = styled.div<{ $isUser?: boolean }>`
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  flex-direction: ${(props) => (props.isUser ? "row-reverse" : "row")};
-  justify-content: ${(props) => (props.isUser ? "flex-end" : "flex-start")};
-  padding: ${(props) => (props.isUser ? "0 0 0 10px" : "0 10px 0 0")};
+  flex-direction: ${(props) => (props.$isUser ? "row-reverse" : "row")};
+  justify-content: ${(props) => (props.$isUser ? "flex-end" : "flex-start")};
+  padding: ${(props) => (props.$isUser ? "0 0 0 10px" : "0 10px 0 0")};
 `;
 
 const Avatar = styled.img`
@@ -215,12 +217,114 @@ const HomePage1_2: React.FC = () => {
   const [message, setMessage] = useState("");
   const [treatCount, setTreatCount] = useState(1);
   const [currentCatGif, setCurrentCatGif] = useState(catGifs[0]);
+  const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState([
     { type: "cat", text: "meow~~" },
     { type: "human", text: "hi~" },
     { type: "human", text: "how was your day on meow star ?" },
     { type: "cat", text: "not bad~~~~heh" },
   ]);
+
+  const sendMessage = async (text: string) => {
+    setIsLoading(true);
+    try {
+      const messageData = {
+        text,
+        user: "user",
+        system:
+          "Lucy was a black-and-white female cat born in 2013, who passed away on August 5, 2024. She spent her first four months as a stray before being adopted by Evelyn. During this time, she witnessed the death of a male kitten from her litter in a thunderstorm. Lucy was spayed at 9 months old and shared many milestones with Evelyn, including college graduation, her first job, and two relationships. While Lucy disliked Evelyn's first boyfriend and was indifferent to the second, she always knew Evelyn loved and cared for her. Her happiest moments were when Evelyn opened a can of cat food for her. Independent yet affectionate at times, Lucy had a unique understanding of the world. She was healthy and agile in her youth but passed away from kidney failure and a weakened immune system in her later years. Evelyn stayed with her until the end. Lucy believes she is Evelyn's pet cat, and after her death, she lives in Meow Star. She does not consider herself to be virtual.",
+      };
+
+      console.log("Sending request to server...");
+      console.log("Message data:", messageData);
+
+      const response = await fetch(
+        "http://54.145.197.118:3000/474e97d0-7b83-0a9b-b4d1-ec3998403541/message",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(messageData),
+        }
+      );
+
+      console.log("Server response status:", response.status);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Raw server response:", data);
+
+      // 修改数据处理逻辑
+      if (Array.isArray(data) && data.length > 0) {
+        // 如果返回的是数组，取第一个元素
+        const firstResponse = data[0];
+        if (typeof firstResponse === "string") {
+          return firstResponse;
+        } else if (firstResponse && typeof firstResponse.text === "string") {
+          return firstResponse.text;
+        }
+      } else if (data && typeof data.text === "string") {
+        // 如果返回的是单个对象
+        return data.text;
+      }
+
+      // 如果数据格式不符合预期
+      console.error("Unexpected response format:", data);
+      throw new Error("Invalid response format");
+    } catch (error) {
+      console.error("Error in sendMessage:", error);
+      return defaultCatResponses[
+        Math.floor(Math.random() * defaultCatResponses.length)
+      ];
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSend = async () => {
+    if (message.trim() && !isLoading) {
+      const userMessage = message;
+      setMessage(""); // 清空输入框
+
+      try {
+        // 立即添加用户消息到对话
+        setMessages((prev) => [...prev, { type: "human", text: userMessage }]);
+
+        // 显示加载状态
+        const loadingMessage = "思考中...";
+        setMessages((prev) => [...prev, { type: "cat", text: loadingMessage }]);
+
+        // 获取服务器响应
+        const response = await sendMessage(userMessage);
+
+        // 更新加载消息为实际响应
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          newMessages[newMessages.length - 1] = { type: "cat", text: response };
+          return newMessages;
+        });
+      } catch (error) {
+        console.error("Error in handleSend:", error);
+        // 更新为默认回复
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          const defaultResponse =
+            defaultCatResponses[
+              Math.floor(Math.random() * defaultCatResponses.length)
+            ];
+          newMessages[newMessages.length - 1] = {
+            type: "cat",
+            text: defaultResponse,
+          };
+          return newMessages;
+        });
+      }
+    }
+  };
 
   // 添加动图切换效果
   useEffect(() => {
@@ -239,42 +343,6 @@ const HomePage1_2: React.FC = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  const fetchCatResponse = async () => {
-    try {
-      const response = await fetch("https://meowfacts.herokuapp.com/");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      // 将猫咪事实改写成对话形式
-      const catFact = `喵~ 让我告诉你一个有趣的事实：${data.data[0]} eliza ko`;
-      return catFact;
-    } catch (error) {
-      // 如果请求失败，使用默认回复
-      const randomResponse =
-        defaultCatResponses[
-          Math.floor(Math.random() * defaultCatResponses.length)
-        ];
-      return randomResponse + " eliza error";
-    }
-  };
-
-  const handleSend = async () => {
-    if (message.trim()) {
-      // 添加用户消息
-      setMessages([...messages, { type: "human", text: message }]);
-      setMessage("");
-
-      // 获取猫咪回复
-      const catResponse = await fetchCatResponse();
-
-      // 添加猫咪回复
-      setTimeout(() => {
-        setMessages((prev) => [...prev, { type: "cat", text: catResponse }]);
-      }, 1000);
-    }
-  };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -305,7 +373,7 @@ const HomePage1_2: React.FC = () => {
           <ChatContainer>
             <ChatMessages>
               {messages.map((msg, index) => (
-                <ChatMessage key={index} isUser={msg.type === "human"}>
+                <ChatMessage key={index} $isUser={msg.type === "human"}>
                   <Avatar
                     src={
                       msg.type === "cat"
@@ -314,7 +382,7 @@ const HomePage1_2: React.FC = () => {
                     }
                     alt={msg.type === "cat" ? "Cat" : "Human"}
                   />
-                  <MessageBubble isUser={msg.type === "human"}>
+                  <MessageBubble $isUser={msg.type === "human"}>
                     {msg.text}
                   </MessageBubble>
                 </ChatMessage>
