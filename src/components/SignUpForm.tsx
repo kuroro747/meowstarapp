@@ -1,6 +1,6 @@
 //注册表单
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const SignUpForm: React.FC = () => {
   const [username, setUsername] = useState("");

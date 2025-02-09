@@ -1,12 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import "./app.css";
-//import "bootstrap/dist/css/bootstrap.min.css";
 
-createRoot(document.getElementById("root")!).render(
+//获取根节点
+const container = document.getElementById("root");
+const root = createRoot(container!); // 使用 createRoot 创建根节点
+
+root.render(
   <StrictMode>
-    <App />
+    <BrowserRouter basename="/meowstarapp">
+      <App />
+    </BrowserRouter>
   </StrictMode>
 );
 

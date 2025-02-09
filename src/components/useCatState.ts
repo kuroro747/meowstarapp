@@ -7,17 +7,19 @@ export interface CatState {
 }
 
 export const useCatState = () => {
-  const [catState, setCatState] = useState<CatState>({
+  const [catState] = useState<CatState>({
     avatarUrl: '../public/lucy2.0.jpg', // 这里放置猫咪的静态图像路径
     action: 'Purring',
     greeting: 'Meow!',
   });
 
-  const addChat = (message: string) => {
+  //const addChat = (message: string) => {
     // 根据对话内容调整猫咪的状态
-    const newCatState = { ...catState, greeting: 'Purring' }; // 这里只是一个示例
-    setCatState(newCatState);
-  };
+    //const newCatState = { ...catState, greeting: 'Purring' }; // 这里只是一个示例
+    //setCatState(newCatState);
+  //};
 
-  return { catState, addChat };
+  return { catState};
+  //return { catState, addChat };
+
 };
