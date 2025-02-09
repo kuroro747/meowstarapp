@@ -24,7 +24,7 @@ const MainContainer = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url("/Ellipse7.png");
+    background-image: url("/meowstarapp/Ellipse7.png"); // 使用相对路径
     background-repeat: no-repeat;
     background-position: left bottom;
     background-size: contain;
@@ -284,7 +284,7 @@ const Page2_1: React.FC = () => {
 
       <MainContent>
         <MainContainer>
-          <CatImage src="/cats3.gif" alt="cat animation" />
+          <CatImage src="/meowstarapp/cats3.gif" alt="cat animation" />
           <FormContainer>
             <form onSubmit={handleSubmit}>
               <FormButton type="button" onClick={handleWordClick}>

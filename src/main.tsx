@@ -11,8 +11,6 @@ const root = createRoot(container!); // 使用 createRoot 创建根节点
 root.render(
   <StrictMode>
     <BrowserRouter basename="/meowstarapp">
-      {" "}
-      {/* 添加 basename 属性 */}
       <App />
     </BrowserRouter>
   </StrictMode>

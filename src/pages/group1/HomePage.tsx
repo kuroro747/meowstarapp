@@ -39,7 +39,7 @@ const MainContainer = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url("/Ellipse6.png");
+    background-image: url("/meowstarapp/Ellipse6.png"); // 使用相对路径
     background-repeat: no-repeat;
     background-position: left bottom;
     background-size: contain;
@@ -56,6 +56,7 @@ const CatImage = styled.img`
   margin-top: 48px;
   position: relative;
   z-index: 1;
+  src: url("/meowstarapp/cats.gif"); // 使用相对路径
 `;
 
 const LinksContainer = styled.div`
@@ -95,7 +96,7 @@ const FootprintBackground = styled.div`
     position: absolute;
     width: 1200px;
     height: 1200px;
-    background-image: url("/footprint40.gif");
+    background-image: url("/meowstarapp/footprint40.gif"); // 使用相对路径
     background-size: contain;
     background-repeat: no-repeat;
     opacity: 0.8;
@@ -163,8 +164,8 @@ const HomePage: React.FC = () => {
 
       <MainContent>
         <MainContainer>
-          <CatImage src="/cats.gif" alt="cat animation" />
-          <TitleImage src="/meowwelcome.png" alt="Meow Star" />
+          <CatImage src="/meowstarapp/cats.gif" alt="cat animation" />
+          <TitleImage src="/meowstarapp/meowwelcome.png" alt="Meow Star" />
           <LinksContainer>
             <Link to="/homepage1_2" className="link-style">
               see what your cat is doing on Meow star

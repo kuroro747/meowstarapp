@@ -31,7 +31,7 @@ const MainContainer = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url("/Ellipse7.png");
+    background-image: url("/meowstarapp/Ellipse7.png"); // 使用相对路径
     background-repeat: no-repeat;
     background-position: left bottom;
     background-size: contain;
@@ -101,8 +101,8 @@ const HomePage2: React.FC = () => {
 
       <MainContent>
         <MainContainer>
-          <CatImage src="/cats3.gif" alt="cat animation" />
-          <TitleImage src="/meowwelcome.png" alt="Meow Star" />
+          <CatImage src="/meowstarapp/cats3.gif" alt="cat animation" />
+          <TitleImage src="/meowstarapp/meowwelcome.png" alt="Meow Star" />
           <Description>
             Please share some descriptions, audio, or video of your cat to help
             us find them on their journey to Meow Star...

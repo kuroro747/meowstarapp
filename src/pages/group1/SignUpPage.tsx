@@ -39,7 +39,7 @@ const MainContainer = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url("/Ellipse6.png");
+    background-image: url("/meowstarapp/Ellipse6.png"); // 使用相对路径
     background-repeat: no-repeat;
     background-position: left bottom;
     background-size: contain;
@@ -56,7 +56,7 @@ const VectorBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/Vector.png");
+  background-image: url("/meowstarapp/Vector.png"); // 使用相对路径
   background-repeat: no-repeat;
   background-position: bottom center;
   background-size: 100% auto;
@@ -182,8 +182,8 @@ const SignUpPage: React.FC = () => {
 
       <MainContent>
         <MainContainer>
-          <CatImage src="/cats.gif" alt="cat animation" />
-          <TitleImage src="/meowwelcome.png" alt="Meow Star" />
+          <CatImage src="/meowstarapp/cats.gif" alt="cat animation" />
+          <TitleImage src="/meowstarapp/meowwelcome.png" alt="Meow Star" />
           <FormContainer>
             <form onSubmit={handleSubmit}>
               {error && (

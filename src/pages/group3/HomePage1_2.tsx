@@ -166,7 +166,7 @@ const MovingBackground = styled.div`
     position: absolute;
     width: 800px;
     height: 800px;
-    background-image: url("/Ellipse7.png"); // 修改路径
+    background-image: url("/meowstarapp/Ellipse7.png"); // 使用相对路径
     background-size: contain;
     background-repeat: no-repeat;
     opacity: 0.8;
@@ -205,11 +205,11 @@ const defaultCatResponses = [
 ];
 
 const catGifs = [
-  "/llucymeoww.gif",
-  "/lucywink2.gif",
-  "/rest.gif",
-  "/sleep.gif",
-  "/tail.gif",
+  "/meowstarapp/llucymeoww.gif",
+  "/meowstarapp/lucywink2.gif",
+  "/meowstarapp/rest.gif",
+  "/meowstarapp/sleep.gif",
+  "/meowstarapp/tail.gif",
 ];
 
 const HomePage1_2: React.FC = () => {
@@ -224,7 +224,7 @@ const HomePage1_2: React.FC = () => {
     { type: "human", text: "how was your day on meow star ?" },
     { type: "cat", text: "not bad~~~~heh" },
   ]);
-  const defaultAvatar = "/cat-avatar.jpg"; // 默认头像路径
+  const defaultAvatar = "/meowstarapp/cat-avatar.jpg"; // 默认头像路径
   const [catAvatar, setCatAvatar] = useState<string | null>(defaultAvatar);
 
   useEffect(() => {
@@ -398,7 +398,7 @@ const HomePage1_2: React.FC = () => {
                     src={
                       msg.type === "cat"
                         ? catAvatar || defaultAvatar // 确保 catAvatar 有值，否则使用默认头像
-                        : "/human-avatar.jpg"
+                        : "/meowstarapp/human-avatar.jpg"
                     }
                     alt={msg.type === "cat" ? "Cat" : "Human"}
                     onError={(e) => {
@@ -434,7 +434,7 @@ const HomePage1_2: React.FC = () => {
               }}
             />
             <TreatIcon onClick={handleTreatClick} style={{ cursor: "pointer" }}>
-              <img src="/cat-treat.png" alt="Cat treat" />
+              <img src="/meowstarapp/cat-treat.png" alt="Cat treat" />
               <div>Cat treat +{treatCount}</div>
             </TreatIcon>
           </RightSection>

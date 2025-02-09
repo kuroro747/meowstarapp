@@ -124,7 +124,7 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
       <MainContent>
         <BackgroundImageContainer2 className="background-image1">
           <img
-            src="/lucywink2.gif"
+            src="/meowstarapp/lucywink2.gif"
             alt="Cat"
             style={{
               maxWidth: "400px",
@@ -137,11 +137,11 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
           <ContentContainer>
             <AvatarContainer>
               <Avatar
-                src={imageUrl || "/lucywink2.gif"}
+                src={imageUrl || "/meowstarapp/lucywink2.gif"}
                 alt="Cat Avatar"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = "/lucywink2.gif";
+                  target.src = "/meowstarapp/lucywink2.gif";
                 }}
               />
               <h2>Your Cat's Introduction</h2> {/* 修改文字 */}
@@ -152,7 +152,7 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
 
             <ContentContainer>
               <LucyContainer>
-                <Avatar src="/cat-avatar.jpg" alt="Lucy Avatar" />
+                <Avatar src="/meowstarapp/cat-avatar.jpg" alt="Lucy Avatar" />
                 <h2>Lucy's Story</h2> {/* 修改文字 */}
               </LucyContainer>
               <p>
