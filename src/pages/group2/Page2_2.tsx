@@ -5,15 +5,16 @@ import {
   Header,
   MainContent,
   Footer,
-  BackgroundImageContainer2,
 } from "../../styles/SharedStyles";
 import styled from "styled-components";
 
 // 添加新的样式组件
 const ContentContainer = styled.div`
   backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.5); // 设置背景为玻璃透明色，透明度 50%
   padding: 25px;
   border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.6); // 添加边框
   max-width: 800px;
   margin: 20px auto;
 
@@ -81,6 +82,45 @@ const LucyContainer = styled(AvatarContainer)`
   // 继承 AvatarContainer 的样式
 `;
 
+// 添加背景容器样式
+const BackgroundContainer = styled.div`
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(240, 248, 255, 1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+
+  &::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 800px;
+    background-image: url("/meowstarapp/Ellipse7.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+`;
+
 const Page2_2: React.FC = () => {
   const location = useLocation();
   // 使用 LocationState 接口来类型化 state
@@ -122,7 +162,7 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
       </Header>
 
       <MainContent>
-        <BackgroundImageContainer2 className="background-image1">
+        <BackgroundContainer>
           <img
             src="/meowstarapp/lucywink2.gif"
             alt="Cat"
@@ -150,7 +190,14 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
 
             <Divider />
 
-            <ContentContainer>
+            <ContentContainer
+              style={{
+                background: "rgba(255, 255, 255, 0.5)",
+                border: "1px solid rgba(255, 255, 255, 0.6)",
+              }}
+            >
+              {" "}
+              {/* 添加样式 */}
               <LucyContainer>
                 <Avatar src="/meowstarapp/cat-avatar.jpg" alt="Lucy Avatar" />
                 <h2>Lucy's Story</h2> {/* 修改文字 */}
@@ -205,7 +252,7 @@ Her favorite foods are boiled shrimp and Mimi brand cat treats, which she enjoys
           <Link to="/homepage1_2" className="link-style">
             see what your cat is doing on Meow star
           </Link>
-        </BackgroundImageContainer2>
+        </BackgroundContainer>
       </MainContent>
 
       <Footer>

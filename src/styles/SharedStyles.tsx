@@ -244,29 +244,37 @@ export const BackgroundImageContainer = styled.div`
 export const BackgroundImageContainer2 = styled.div`
   position: relative;
   width: 100%;
-  height: auto;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(240, 248, 255, 1) 100%
+  );
 
   &::before {
     content: "";
-    position: absolute;
-    width: 1000px;
-    height: 1000px;
-    background-image: url("/Ellipse7.png");
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-image: url("/meowstarapp/Ellipse7.png");
     background-size: contain;
     background-repeat: no-repeat;
-    left: 50%;
-    transform: translateX(-65%);
-    top: 100px;
-    z-index: 1;
-    pointer-events: none;
+    background-position: center;
+    transform: translate(-50%, -50%);
     opacity: 0.8;
+    z-index: 0;
   }
 
   > * {
     position: relative;
-    z-index: 2;
+    z-index: 1;
   }
 `;
