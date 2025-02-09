@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
-import "./app.css";
+import "./App.css"; // 修改为正确的文件名大小写
 
 //获取根节点
 const container = document.getElementById("root");
